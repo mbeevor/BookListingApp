@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Book Listing App</string>
 
+    // Text above search box
     <string name="search">Search by title or author:</string>
+
+    // Text for empty view and when no network connection
+    <string name="empty_view">No books found!</string>
+    <string name="no_network">Couldn\'t connect to server - check your data connection and try again.</string>
 
 </resources>
