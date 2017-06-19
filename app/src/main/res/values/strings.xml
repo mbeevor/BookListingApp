@@ -2,7 +2,7 @@
     <string name="app_name">Find a Book!</string>
 
     // Text for search box
-    <string name="search">Search by title or author:</string>
+    <string name="search">Search for a book:</string>
     <string name="search_button">Search</string>
     <string name="search_error">You must enter at least one word</string>
 

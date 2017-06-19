@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set Toolbar to replace the ActionBar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Create toolbar menu icon
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // restore saved search term
         searchTerm = getIntent().getExtras().getString("searchTerm");
@@ -90,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
 
-       // TODO: set up proper process to return API address, using EditText to string
+        // TODO: set up proper process to return API address, using EditText to string
         return new BookLoader(this, searchTerm);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Book>> loader, List<Book> books)     {
+    public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
 
         // set EmptyTextState to 'no books found'
         emptyStateTextView.setText(R.string.empty_view);
