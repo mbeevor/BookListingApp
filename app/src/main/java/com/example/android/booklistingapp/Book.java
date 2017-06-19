@@ -8,14 +8,14 @@ public class Book {
 
     private String bookTitle;
     private StringBuilder bookAuthor;
+    private String bookDescription;
+    private String webLink;
 
-    public Book(String thisBookTitle, StringBuilder thisBookAuthor) {
+    public Book(String thisBookTitle, StringBuilder thisBookAuthor, String description, String webReaderLink) {
         bookTitle = thisBookTitle;
         bookAuthor = thisBookAuthor;
-    }
-
-    public Book(String thisBookTitle) {
-        bookTitle = thisBookTitle;
+        bookDescription = description;
+        webLink = webReaderLink;
     }
 
     public String getBookTitle() {
@@ -25,4 +25,13 @@ public class Book {
     public StringBuilder getBookAuthor() {
         return bookAuthor;
     }
+
+    public String getBookDescription() {
+        return bookDescription;
+    }
+
+    public String getWebLink() {
+        return webLink;
+    }
+
 }

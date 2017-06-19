@@ -140,7 +140,7 @@ public class QueryUtils {
             for (int i = 0; i < bookArray.length(); i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
 
-                // get title for each item in arraylist
+                // get title for each item in array list
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
                 String bookTitle = volumeInfo.getString("title");
 
@@ -155,6 +155,7 @@ public class QueryUtils {
 
                     // Loop through each item in the authors array
                     for (int j = 0; j < authorsArray.length(); j++) {
+                        // create new line for each author
                         bookAuthor.append(System.getProperty("line.separator"));
                         bookAuthor.append(authorsArray.getString(j));
 
@@ -162,17 +163,39 @@ public class QueryUtils {
                     // return placeholder for when author doesn't exist
                 } else {
                     bookAuthor.append(R.string.no_author);
-
                 }
 
+                // check if the book has a description
+                String bookDescription;
+                if(volumeInfo.has("description")) {
+                    bookDescription = volumeInfo.getString("description");
+                } else {
+                    // TODO: change to Resource String ID
+                    bookDescription = "No descripton available";
+                }
+
+
+                // get JSONObject accessInfo
+                JSONObject accessInfo = currentBook.getJSONObject("accessInfo");
+                // get URL for web link for each item
+                String webLink;
+                // Check if web reader link exists
+                if (accessInfo.has("webReaderLink")) {
+                    // get URL for web link
+                    webLink = accessInfo.getString("webReaderLink");
+                } else {
+                    webLink = null;
+                }
+
+
                 // create new book
-                Book book = new Book(bookTitle, bookAuthor);
+                Book book = new Book(bookTitle, bookAuthor, bookDescription, webLink);
                 books.add(book);
             }
 
-                } catch(JSONException e){
-                    Log.e("QueryUtils", "Problem parsing the Book API results.", e);
-                }
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the Book API results.", e);
+        }
 
         // return the list of books
         return books;

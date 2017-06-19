@@ -2,12 +2,16 @@ package com.example.android.booklistingapp;
 
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,22 +21,24 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Book>> {
 
+    private EditText searchQuery;
     private TextView emptyStateTextView;
     private ProgressBar progressBar;
     private ListView bookListView;
     private BookAdapter adapter;
-
-    private static final String GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=10";
+    private String searchTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // restore saved search term
+        searchTerm = getIntent().getExtras().getString("searchTerm");
+
         // find ids for displaying progress bar and error when no results found
         emptyStateTextView = (TextView) findViewById(R.id.empty_view);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-
 
         // Find id for view to populate with results
         bookListView = (ListView) findViewById(R.id.list);
@@ -44,6 +50,28 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         adapter = new BookAdapter(this, new ArrayList<Book>());
         // set the adapter to the already identified list
         bookListView.setAdapter(adapter);
+
+        // Create onItemClickListener for each book
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // find the current button that was clicked on
+                Book currentBook = adapter.getItem(position);
+
+                if (currentBook.getWebLink() != null) {
+                    // Convert the string url into a URL object that can be passed to an intent
+                    Uri bookUri = Uri.parse(currentBook.getWebLink());
+
+                    // Create new intent to launch web browser
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, bookUri);
+
+                    // start the intent
+                    startActivity(webIntent);
+                }
+            }
+
+        });
 
         // Check there is a network connection before proceeding
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -63,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
 
        // TODO: set up proper process to return API address, using EditText to string
-        return new BookLoader(this, GOOGLE_BOOKS_API);
+        return new BookLoader(this, searchTerm);
     }
 
     @Override

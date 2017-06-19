@@ -2,6 +2,17 @@
 <resources>
 
     // Padding for each list item
-    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="list_item_padding">12dp</dimen>
+
+    // Padding for text
+    <dimen name="text_padding">5dp</dimen>
+    <dimen name="text_margin">5dp</dimen>
+
+    // Margin and padding for button
+    <dimen name="button_padding">12dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
+
+    // height and width for book cover preview
+    <dimen name="thumbnail">88dp</dimen>
 
 </resources>
