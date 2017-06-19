@@ -8,4 +8,7 @@
     <string name="empty_view">No books found!</string>
     <string name="no_network">Couldn\'t connect to server - check your data connection and try again.</string>
 
+    // Text for when no return in API
+    <string name="no_author">There is no author for this book.</string>
+
 </resources>

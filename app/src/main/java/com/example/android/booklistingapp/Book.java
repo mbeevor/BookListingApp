@@ -7,18 +7,22 @@ package com.example.android.booklistingapp;
 public class Book {
 
     private String bookTitle;
-    private String bookAuthor;
+    private StringBuilder bookAuthor;
 
-    public Book(String thisBookTitle, String thisBookAuthor) {
+    public Book(String thisBookTitle, StringBuilder thisBookAuthor) {
         bookTitle = thisBookTitle;
         bookAuthor = thisBookAuthor;
+    }
+
+    public Book(String thisBookTitle) {
+        bookTitle = thisBookTitle;
     }
 
     public String getBookTitle() {
         return bookTitle;
     }
 
-    public String getBookAuthor() {
+    public StringBuilder getBookAuthor() {
         return bookAuthor;
     }
 }

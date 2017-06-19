@@ -136,26 +136,45 @@ public class QueryUtils {
             JSONObject jsonObject = new JSONObject(bookJSON);
             // extract 'items' from JSONArray
             JSONArray bookArray = jsonObject.getJSONArray("items");
-            // Loop through each item in the array
+            // Loop through each item in the items array
             for (int i = 0; i < bookArray.length(); i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
+
+                // get title for each item in arraylist
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
-
                 String bookTitle = volumeInfo.getString("title");
-                String bookAuthor = volumeInfo.getString("authors");
 
+                // Create StringBuilder for list of authors
+                StringBuilder bookAuthor = new StringBuilder();
 
+                // Check if authors exist
+                if (volumeInfo.has("authors")) {
+
+                    // find Array within current array to return list of authors
+                    JSONArray authorsArray = volumeInfo.getJSONArray("authors");
+
+                    // Loop through each item in the authors array
+                    for (int j = 0; j < authorsArray.length(); j++) {
+                        bookAuthor.append(System.getProperty("line.separator"));
+                        bookAuthor.append(authorsArray.getString(j));
+
+                    }
+                    // return placeholder for when author doesn't exist
+                } else {
+                    bookAuthor.append(R.string.no_author);
+
+                }
+
+                // create new book
                 Book book = new Book(bookTitle, bookAuthor);
                 books.add(book);
-
             }
-        } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the Book API results.", e);
-        }
+
+                } catch(JSONException e){
+                    Log.e("QueryUtils", "Problem parsing the Book API results.", e);
+                }
 
         // return the list of books
         return books;
     }
-
-
 }
