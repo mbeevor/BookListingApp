@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
-
-        // TODO: set up proper process to return API address, using EditText to string
         return new BookLoader(this, searchTerm);
     }
 

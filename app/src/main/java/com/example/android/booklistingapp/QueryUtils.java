@@ -1,5 +1,6 @@
 package com.example.android.booklistingapp;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -170,8 +171,7 @@ public class QueryUtils {
                 if(volumeInfo.has("description")) {
                     bookDescription = volumeInfo.getString("description");
                 } else {
-                    // TODO: change to Resource String ID
-                    bookDescription = "No descripton available";
+                    bookDescription = Resources.getSystem().getString(R.string.no_description);
                 }
 
 
