@@ -1,6 +1,5 @@
 package com.example.android.booklistingapp;
 
-import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -168,10 +167,10 @@ public class QueryUtils {
 
                 // check if the book has a description
                 String bookDescription;
-                if(volumeInfo.has("description")) {
+                if (volumeInfo.has("description")) {
                     bookDescription = volumeInfo.getString("description");
                 } else {
-                    bookDescription = Resources.getSystem().getString(R.string.no_description);
+                    bookDescription = "This book has no description.";
                 }
 
 
